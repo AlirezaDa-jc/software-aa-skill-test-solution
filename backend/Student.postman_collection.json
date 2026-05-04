@@ -1,0 +1,1380 @@
+{
+  "info": {
+    "_postman_id": "275082a9-19e8-47ef-afa6-0d3c385300af",
+    "name": "Student",
+    "description": "## Initial Setup Workflow\n\nTo successfully test the API, please follow these steps in order to maintain referential integrity in the database:\n\n### 1\\. Authentication\n\n- **Endpoint:** `POST /auth/login`\n    \n- **Action:** Log in with your admin credentials to receive your Access and Refresh tokens.\n    \n- **Note:** The system uses secure HTTP-only cookies. Ensure your Postman environment is configured to handle cookies or manually include the `Authorization` header for subsequent requests.\n    \n\n### 2\\. Define School Infrastructure\n\nBefore adding students, you must define the organizational structure:\n\n- **Step A: Create a Section**\n    \n    - **Endpoint:** `POST /sections`\n        \n    - **Payload:** `{ \"name\": \"A\" }`\n        \n    - **Purpose:** Establishes the physical/logical breakout for a grade.\n        \n- **Step B: Create a Class**\n    \n    - **Endpoint:** `POST /classes`\n        \n    - **Payload:** `{ \"name\": \"First grade\", \"sections\": [\"A\"] }`\n        \n    - **Purpose:** Creates the grade level and maps the previously created section to it.\n        \n\n### 3\\. Onboard a Student\n\n- **Endpoint:** `POST /students`\n    \n- **Action:** Use the `class` and `section` names defined in the previous steps.\n    \n- **Validation:** The system will verify that the section exists within the specified class before allowing the creation of the student record.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "14503289"
+  },
+  "item": [
+    {
+      "name": "Student",
+      "item": [
+        {
+          "name": "Get All Students",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrfToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5007/api/v1/students",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5007",
+              "path": [
+                "api",
+                "v1",
+                "students"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-CSRF-TOKEN",
+                    "value": "{{csrfToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5007/api/v1/students",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5007",
+                  "path": [
+                    "api",
+                    "v1",
+                    "students"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "223"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"df-e7QifXaIYPYfWHSKajbJyRjuzd0\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 04 May 2026 18:53:48 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"students\": [\n        {\n            \"id\": 2,\n            \"name\": \"Mia Johnson\",\n            \"email\": \"mia.johnson3@student.com\",\n            \"lastLogin\": null,\n            \"systemAccess\": true\n        },\n        {\n            \"id\": 3,\n            \"name\": \"Leo Sterling\",\n            \"email\": \"leo.sterling88@academix.edu\",\n            \"lastLogin\": null,\n            \"systemAccess\": false\n        }\n    ]\n}"
+            },
+            {
+              "name": "Error : Students Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-CSRF-TOKEN",
+                    "value": "{{csrfToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5007/api/v1/students",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5007",
+                  "path": [
+                    "api",
+                    "v1",
+                    "students"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "223"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"df-e7QifXaIYPYfWHSKajbJyRjuzd0\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 04 May 2026 18:53:48 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\n    \"error\": \"Students not found\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Add Student",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrfToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Mia Johnson\",\r\n  \"email\": \"mia.johnson3@student.com\",\r\n  \"gender\": \"Female\",\r\n  \"phone\": \"555-0199\",\r\n  \"dob\": \"2008-05-21\",\r\n  \"currentAddress\": \"12 Maple Street\",\r\n  \"permanentAddress\": \"12 Maple Street\",\r\n  \"fatherName\": \"Michael Johnson\",\r\n  \"fatherPhone\": \"555-0200\",\r\n  \"motherName\": \"Sara Johnson\",\r\n  \"motherPhone\": \"555-0201\",\r\n  \"guardianName\": \"Michael Johnson\",\r\n  \"guardianPhone\": \"555-0200\",\r\n  \"relationOfGuardian\": \"Father\",\r\n  \"systemAccess\": true,\r\n  \"class\": \"First grade\",\r\n  \"section\": \"C\",\r\n  \"admissionDate\": \"2024-09-01\",\r\n  \"roll\": \"13\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5007/api/v1/students",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5007",
+              "path": [
+                "api",
+                "v1",
+                "students"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Error : Roll Exist in class and section",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-CSRF-TOKEN",
+                    "value": "{{csrfToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Mia Johnson\",\r\n  \"email\": \"mia.johnson1@student.com\",\r\n  \"gender\": \"Female\",\r\n  \"phone\": \"555-0199\",\r\n  \"dob\": \"2008-05-21\",\r\n  \"currentAddress\": \"12 Maple Street\",\r\n  \"permanentAddress\": \"12 Maple Street\",\r\n  \"fatherName\": \"Michael Johnson\",\r\n  \"fatherPhone\": \"555-0200\",\r\n  \"motherName\": \"Sara Johnson\",\r\n  \"motherPhone\": \"555-0201\",\r\n  \"guardianName\": \"Michael Johnson\",\r\n  \"guardianPhone\": \"555-0200\",\r\n  \"relationOfGuardian\": \"Father\",\r\n  \"systemAccess\": true,\r\n  \"class\": \"First grade\",\r\n  \"section\": \"A\",\r\n  \"admissionDate\": \"2024-09-01\",\r\n  \"roll\": \"13\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5007/api/v1/students",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5007",
+                  "path": [
+                    "api",
+                    "v1",
+                    "students"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "57"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"39-gtaa7+aJAMNdSqwUvAUff9ri6M4\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 04 May 2026 18:50:31 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\n    \"error\": \"Roll already exists in this class and section\"\n}"
+            },
+            {
+              "name": "Error : Email Exists",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-CSRF-TOKEN",
+                    "value": "{{csrfToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Mia Johnson\",\r\n  \"email\": \"mia.johnson3@student.com\",\r\n  \"gender\": \"Female\",\r\n  \"phone\": \"555-0199\",\r\n  \"dob\": \"2008-05-21\",\r\n  \"currentAddress\": \"12 Maple Street\",\r\n  \"permanentAddress\": \"12 Maple Street\",\r\n  \"fatherName\": \"Michael Johnson\",\r\n  \"fatherPhone\": \"555-0200\",\r\n  \"motherName\": \"Sara Johnson\",\r\n  \"motherPhone\": \"555-0201\",\r\n  \"guardianName\": \"Michael Johnson\",\r\n  \"guardianPhone\": \"555-0200\",\r\n  \"relationOfGuardian\": \"Father\",\r\n  \"systemAccess\": true,\r\n  \"class\": \"First grade\",\r\n  \"section\": \"A\",\r\n  \"admissionDate\": \"2024-09-01\",\r\n  \"roll\": \"13\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5007/api/v1/students",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5007",
+                  "path": [
+                    "api",
+                    "v1",
+                    "students"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "32"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"20-N0CbDIzmlWyrjCtE3NXOzGCeBnY\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 04 May 2026 18:50:52 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\n    \"error\": \"Email already exists\"\n}"
+            },
+            {
+              "name": "Error : Class Not Found",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-CSRF-TOKEN",
+                    "value": "{{csrfToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Mia Johnson\",\r\n  \"email\": \"mia.johnson3@student.com\",\r\n  \"gender\": \"Female\",\r\n  \"phone\": \"555-0199\",\r\n  \"dob\": \"2008-05-21\",\r\n  \"currentAddress\": \"12 Maple Street\",\r\n  \"permanentAddress\": \"12 Maple Street\",\r\n  \"fatherName\": \"Michael Johnson\",\r\n  \"fatherPhone\": \"555-0200\",\r\n  \"motherName\": \"Sara Johnson\",\r\n  \"motherPhone\": \"555-0201\",\r\n  \"guardianName\": \"Michael Johnson\",\r\n  \"guardianPhone\": \"555-0200\",\r\n  \"relationOfGuardian\": \"Father\",\r\n  \"systemAccess\": true,\r\n  \"class\": \"First grade2\",\r\n  \"section\": \"A\",\r\n  \"admissionDate\": \"2024-09-01\",\r\n  \"roll\": \"13\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5007/api/v1/students",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5007",
+                  "path": [
+                    "api",
+                    "v1",
+                    "students"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "27"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"1b-AnHVCY0ngambzCrCXwAdkb4Fg6o\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 04 May 2026 18:51:26 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\n    \"error\": \"Class not found\"\n}"
+            },
+            {
+              "name": "Error : Section Not Found in Class",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-CSRF-TOKEN",
+                    "value": "{{csrfToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Mia Johnson\",\r\n  \"email\": \"mia.johnson3@student.com\",\r\n  \"gender\": \"Female\",\r\n  \"phone\": \"555-0199\",\r\n  \"dob\": \"2008-05-21\",\r\n  \"currentAddress\": \"12 Maple Street\",\r\n  \"permanentAddress\": \"12 Maple Street\",\r\n  \"fatherName\": \"Michael Johnson\",\r\n  \"fatherPhone\": \"555-0200\",\r\n  \"motherName\": \"Sara Johnson\",\r\n  \"motherPhone\": \"555-0201\",\r\n  \"guardianName\": \"Michael Johnson\",\r\n  \"guardianPhone\": \"555-0200\",\r\n  \"relationOfGuardian\": \"Father\",\r\n  \"systemAccess\": true,\r\n  \"class\": \"First grade\",\r\n  \"section\": \"C\",\r\n  \"admissionDate\": \"2024-09-01\",\r\n  \"roll\": \"13\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5007/api/v1/students",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5007",
+                  "path": [
+                    "api",
+                    "v1",
+                    "students"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "52"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"34-UkT128QspkayfIbvNDN5hF8eiVk\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 04 May 2026 18:51:40 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\n    \"error\": \"Section not found in the specified class\"\n}"
+            },
+            {
+              "name": "Partial Success: Email Failed to Send",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-CSRF-TOKEN",
+                    "value": "{{csrfToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Leo Sterling\",\r\n  \"email\": \"leo.sterling88@academix.edu\",\r\n  \"gender\": \"Male\",\r\n  \"phone\": \"555-9821\",\r\n  \"dob\": \"2008-11-12\",\r\n  \"currentAddress\": \"404 Juniper Avenue\",\r\n  \"permanentAddress\": \"404 Juniper Avenue\",\r\n  \"fatherName\": \"Arthur Sterling\",\r\n  \"fatherPhone\": \"555-7744\",\r\n  \"motherName\": \"Elena Sterling\",\r\n  \"motherPhone\": \"555-7745\",\r\n  \"guardianName\": \"Arthur Sterling\",\r\n  \"guardianPhone\": \"555-7744\",\r\n  \"relationOfGuardian\": \"Father\",\r\n  \"systemAccess\": true,\r\n  \"class\": \"First grade\",\r\n  \"section\": \"A\",\r\n  \"admissionDate\": \"2025-01-10\",\r\n  \"roll\": \"14\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5007/api/v1/students",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5007",
+                  "path": [
+                    "api",
+                    "v1",
+                    "students"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "67"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"43-Tvq2tIHaugWxgpCF4cqbgGb/lwg\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 04 May 2026 18:52:35 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\n    \"message\": \"Student added, but failed to send verification email.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Edit Student",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrfToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Mia Johnson\",\r\n  \"email\": \"mia.johnson3@student.com\",\r\n  \"gender\": \"Female\",\r\n  \"phone\": \"555-0199\",\r\n  \"dob\": \"2008-05-21\",\r\n  \"currentAddress\": \"12 Maple Street\",\r\n  \"permanentAddress\": \"12 Maple Street\",\r\n  \"fatherName\": \"Michael Johnson\",\r\n  \"fatherPhone\": \"555-0200\",\r\n  \"motherName\": \"Sara Johnson\",\r\n  \"motherPhone\": \"555-0201\",\r\n  \"guardianName\": \"Michael Johnson\",\r\n  \"guardianPhone\": \"555-0200\",\r\n  \"relationOfGuardian\": \"Father\",\r\n  \"systemAccess\": true,\r\n  \"class\": \"First grade\",\r\n  \"section\": \"A\",\r\n  \"admissionDate\": \"2024-09-01\",\r\n  \"roll\": \"13\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5007/api/v1/students/:id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5007",
+              "path": [
+                "api",
+                "v1",
+                "students",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "4"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "X-CSRF-TOKEN",
+                    "value": "{{csrfToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Mia Johnson\",\r\n  \"email\": \"mia.johnson3@student.com\",\r\n  \"gender\": \"Female\",\r\n  \"phone\": \"555-0199\",\r\n  \"dob\": \"2008-05-21\",\r\n  \"currentAddress\": \"12 Maple Street\",\r\n  \"permanentAddress\": \"12 Maple Street\",\r\n  \"fatherName\": \"Michael Johnson\",\r\n  \"fatherPhone\": \"555-0200\",\r\n  \"motherName\": \"Sara Johnson\",\r\n  \"motherPhone\": \"555-0201\",\r\n  \"guardianName\": \"Michael Johnson\",\r\n  \"guardianPhone\": \"555-0200\",\r\n  \"relationOfGuardian\": \"Father\",\r\n  \"systemAccess\": true,\r\n  \"class\": \"First grade\",\r\n  \"section\": \"A\",\r\n  \"admissionDate\": \"2024-09-01\",\r\n  \"roll\": \"13\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5007/api/v1/students/:id",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5007",
+                  "path": [
+                    "api",
+                    "v1",
+                    "students",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "2"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "42"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2a-Sb3pmQ59617vj0ChD+5fmuNFa60\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 04 May 2026 18:48:19 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\n    \"message\": \"Student updated successfully\"\n}"
+            },
+            {
+              "name": "Error : Student Not Found",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "X-CSRF-TOKEN",
+                    "value": "{{csrfToken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Mia Johnson\",\r\n  \"email\": \"mia.johnson3@student.com\",\r\n  \"gender\": \"Female\",\r\n  \"phone\": \"555-0199\",\r\n  \"dob\": \"2008-05-21\",\r\n  \"currentAddress\": \"12 Maple Street\",\r\n  \"permanentAddress\": \"12 Maple Street\",\r\n  \"fatherName\": \"Michael Johnson\",\r\n  \"fatherPhone\": \"555-0200\",\r\n  \"motherName\": \"Sara Johnson\",\r\n  \"motherPhone\": \"555-0201\",\r\n  \"guardianName\": \"Michael Johnson\",\r\n  \"guardianPhone\": \"555-0200\",\r\n  \"relationOfGuardian\": \"Father\",\r\n  \"systemAccess\": true,\r\n  \"class\": \"First grade\",\r\n  \"section\": \"A\",\r\n  \"admissionDate\": \"2024-09-01\",\r\n  \"roll\": \"13\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5007/api/v1/students/:id",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5007",
+                  "path": [
+                    "api",
+                    "v1",
+                    "students",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "4"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "29"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"1d-/w9leX+CSVwScG3mclc8pAqpxGg\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 04 May 2026 18:50:17 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\n    \"error\": \"Student not found\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Student",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrfToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5007/api/v1/students/:id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5007",
+              "path": [
+                "api",
+                "v1",
+                "students",
+                ":id"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-CSRF-TOKEN",
+                    "value": "{{csrfToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5007/api/v1/students/:id",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5007",
+                  "path": [
+                    "api",
+                    "v1",
+                    "students",
+                    ":id"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": null,
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "2"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "540"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"21c-+sZ8mAnbjZ01bzZ1xWdj3zJO7bs\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 04 May 2026 18:48:22 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\n    \"id\": 2,\n    \"name\": \"Mia Johnson\",\n    \"email\": \"mia.johnson3@student.com\",\n    \"systemAccess\": true,\n    \"phone\": \"555-0199\",\n    \"gender\": \"Female\",\n    \"dob\": \"2008-05-20T22:00:00.000Z\",\n    \"class\": \"First grade\",\n    \"section\": \"A\",\n    \"roll\": 13,\n    \"fatherName\": \"Michael Johnson\",\n    \"fatherPhone\": \"555-0200\",\n    \"motherName\": \"Sara Johnson\",\n    \"motherPhone\": \"555-0201\",\n    \"guardianName\": \"Michael Johnson\",\n    \"guardianPhone\": \"555-0200\",\n    \"relationOfGuardian\": \"Father\",\n    \"currentAddress\": \"12 Maple Street\",\n    \"permanentAddress\": \"12 Maple Street\",\n    \"admissionDate\": \"2024-08-31T22:00:00.000Z\",\n    \"reporterName\": \"John Doe\"\n}"
+            },
+            {
+              "name": "Error : Student Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-CSRF-TOKEN",
+                    "value": "{{csrfToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5007/api/v1/students/:id",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5007",
+                  "path": [
+                    "api",
+                    "v1",
+                    "students",
+                    ":id"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": null,
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "5"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "29"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"1d-/w9leX+CSVwScG3mclc8pAqpxGg\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 04 May 2026 18:49:48 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\n    \"error\": \"Student not found\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sections",
+      "item": [
+        {
+          "name": "Get All Sections",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrfToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5007/api/v1/sections",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5007",
+              "path": [
+                "api",
+                "v1",
+                "sections"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add Section",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrfToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"A\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5007/api/v1/sections",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5007",
+              "path": [
+                "api",
+                "v1",
+                "sections"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Classes",
+      "item": [
+        {
+          "name": "Get All Classes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrfToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5007/api/v1/classes",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5007",
+              "path": [
+                "api",
+                "v1",
+                "classes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add Class",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrfToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"First grade\",\r\n    \"sections\": \"A\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5007/api/v1/classes",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5007",
+              "path": [
+                "api",
+                "v1",
+                "classes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Edit Class",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "X-CSRF-TOKEN",
+                "value": "{{csrfToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"First grade\",\r\n    \"sections\": \"A\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5007/api/v1/classes/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5007",
+              "path": [
+                "api",
+                "v1",
+                "classes",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const accessToken = pm.cookies.get('accessToken');\r",
+              "\r",
+              "const csrfToken = pm.cookies.get('csrfToken');\r",
+              "\r",
+              "if (accessToken) {\r",
+              "    pm.collectionVariables.set('admintoken', accessToken);\r",
+              "    console.log(\"Access Token saved successfully.\");\r",
+              "} else {\r",
+              "    console.error(\"Access Token NOT found in cookies!\");\r",
+              "}\r",
+              "\r",
+              "if (csrfToken) {\r",
+              "    pm.collectionVariables.set('csrfToken', csrfToken);\r",
+              "    console.log(\"CSRF Token saved successfully.\");\r",
+              "}\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"username\": \"admin@school-admin.com\",\r\n  \"password\": \"3OU4zn3q6Zh9\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5007/api/v1/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5007",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "admintoken",
+      "value": ""
+    },
+    {
+      "key": "csrfToken",
+      "value": ""
+    }
+  ]
+}
