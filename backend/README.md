@@ -10,6 +10,7 @@ A robust Node.js REST API built with Express.js and PostgreSQL for managing scho
 - npm or yarn
 
 ### Installation & Setup
+#### Option 1: Standard Installation
 ```bash
 # Install dependencies
 npm install
@@ -24,6 +25,24 @@ psql -d school_mgmt -f ../seed_db/tables.sql
 psql -d school_mgmt -f ../seed_db/seed-db.sql
 
 # Start the server
+npm start
+```
+
+#### Option 2: Run by Docker
+```bash
+# 1. Start the containers
+docker-compose up -d
+
+# 2. Create the database inside the container
+docker exec -it backend-postgres-1 psql -U postgres -d default_database -c "CREATE DATABASE school_mgmt;"
+
+# 3. Initialize schema and seed data
+docker exec -i backend-postgres-1 psql -U postgres -d school_mgmt < seed_db/tables.sql
+docker exec -i backend-postgres-1 psql -U postgres -d school_mgmt < seed_db/seed-db.sql
+
+# 4. Start the backend
+npm install
+cp .env.example .env
 npm start
 ```
 
