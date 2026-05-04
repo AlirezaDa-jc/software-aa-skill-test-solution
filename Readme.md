@@ -21,10 +21,28 @@ skill-test/
 - npm or yarn
 
 ### 1. Backend Setup
+#### Option 1: Standard Installation
 ```bash
 cd backend
 npm install
 cp .env.example .env  # Configure your environment variables
+npm start
+```
+#### Option 2: Run by Docker
+```bash
+# 1. Start the containers
+docker-compose up -d
+
+# 2. Create the database inside the container
+docker exec -it backend-postgres-1 psql -U postgres -d default_database -c "CREATE DATABASE school_mgmt;"
+
+# 3. Initialize schema and seed data
+docker exec -i backend-postgres-1 psql -U postgres -d school_mgmt < seed_db/tables.sql
+docker exec -i backend-postgres-1 psql -U postgres -d school_mgmt < seed_db/seed-db.sql
+
+# 4. Start the backend
+npm install
+cp .env.example .env
 npm start
 ```
 

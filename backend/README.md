@@ -437,6 +437,11 @@ describe('Student Controller', () => {
 });
 ```
 
+## 🧪 Testing with Postman
+A Postman collection is included in `./postman/collection.json`. 
+1. Import the collection into Postman.
+2. Follow the **Initial Setup Workflow** (Login -> Create Section -> Create Class -> Create Student).
+
 ## 🚀 Deployment
 
 ### Production Build
